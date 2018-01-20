@@ -1,5 +1,18 @@
 import { assign } from './util';
 
+/** Perists a unistore store to disk using a provided adapter
+ *  @name persistStore
+ *  @param {Object} [adapter] adapter to persist state
+ *  @param {Object} [store] unistore store to persist
+ *  @param {number} [version=1] optional version of the stored state
+ *  @param {Function} [migration] optional migration function that gets called on version upgrade and returns new state
+ *  @param {number} [debounceTime=100] optional debounce setState time
+ *  @returns {Function} cancel()
+ *  @example
+ *   let store = createStore();
+ *   let adapter = indexedDbAdapter();
+ *   persistStore(adapter, store);
+ */
 export default function persistStore(
   adapter,
   store,

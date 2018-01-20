@@ -1,3 +1,7 @@
+/*
+ * Largely adapted from Jake Archibald's idb-keyval
+ * from https://github.com/jakearchibald/idb-keyval
+ */
 export default function indexdbAdapter(storeKey, version) {
   let db;
   storeKey = storeKey || 'unistorePersist';
