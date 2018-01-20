@@ -32,7 +32,7 @@ export default function persistStore(
       if (!timer)
         timer = setTimeout(function() {
           adapter.setState(store.getState());
-          timer = undefined;
+          timer = null;
         }, debounceTime);
     });
 
