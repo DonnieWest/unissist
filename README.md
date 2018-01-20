@@ -70,8 +70,11 @@ If not, just open a [new clear and descriptive issue](../../issues/new).
 
 ### Credits
 
-@developit for [unistore](https://github.com/developit/unistore), `assign` util function, and a lot of the tooling that I ~stole~ used
-@jakearchibald for [idb-keyval](https://github.com/jakearchibald/idb-keyval) where much of the code for the indexdbAdapter was ~stolen~ borrowed
+[Jason Miller](https://github.com/developit) for [unistore](https://github.com/developit/unistore), `assign` util function, and a lot of the tooling that I ~stole~ used
+</br>
+[Jake Archibald](https://github.com/jakearchibald) for [idb-keyval](https://github.com/jakearchibald/idb-keyval) where much of the code for the indexdbAdapter was ~stolen~ borrowed
+</br>
+[Sean Groff](https://github.com/seangroff) for the name
 
 ### License
 
