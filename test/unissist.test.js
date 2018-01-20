@@ -18,7 +18,7 @@ describe('unissist', async () => {
   it('should persist store state', async () => {
     let store = createStore();
     let adapter = indexedDbAdapter();
-    let cancel = unissist(adapter, store, 1, 0);
+    let cancel = unissist(adapter, store, 1, null, 0);
 
     expect(adapter.getState()).toBeUndefined();
 
@@ -41,7 +41,7 @@ describe('unissist', async () => {
   it('should restore persisted state', async () => {
     let store = createStore();
     let adapter = indexedDbAdapter();
-    let cancel = unissist(adapter, store, 1, 0);
+    let cancel = unissist(adapter, store, 1, null, 0);
 
     expect(adapter.getState()).toBeUndefined();
     store.setState({ a: 'b' });
@@ -51,7 +51,7 @@ describe('unissist', async () => {
 
     store = createStore();
     adapter = indexedDbAdapter();
-    cancel = unissist(adapter, store, 1, 0);
+    cancel = unissist(adapter, store, 1, null, 0);
 
     await sleep(100);
 
@@ -63,7 +63,7 @@ describe('unissist', async () => {
   it('should only update once during a debounce period', async () => {
     let store = createStore();
     let adapter = indexedDbAdapter();
-    let cancel = unissist(adapter, store, 1, 10);
+    let cancel = unissist(adapter, store, 1, null, 10);
 
     expect(adapter.getState()).toBeUndefined();
 
@@ -84,10 +84,10 @@ describe('unissist', async () => {
     cancel();
   });
 
-  it('should drop the state on version change', async () => {
+  it('should drop the state on version change without a migration function', async () => {
     let store = createStore();
     let adapter = indexedDbAdapter();
-    let cancel = unissist(adapter, store, 1, 0);
+    let cancel = unissist(adapter, store, 1, null, 0);
 
     expect(adapter.getState()).toBeUndefined();
     store.setState({ a: 'b' });
@@ -104,6 +104,31 @@ describe('unissist', async () => {
     expect(await adapter.getState()).toMatchObject({
       hydrated: true,
       version: 2,
+    });
+
+    await adapter.clearState();
+    cancel();
+  });
+
+  it('should migrate the state on version change with a migration function', async () => {
+    let store = createStore();
+    let adapter = indexedDbAdapter();
+    let cancel = unissist(adapter, store, 1, null, 0);
+
+    expect(adapter.getState()).toBeUndefined();
+    store.setState({ a: 'b' });
+    await sleep(100);
+    expect(await adapter.getState()).toMatchObject({ a: 'b' });
+    cancel();
+
+    store = createStore();
+    adapter = indexedDbAdapter();
+    cancel = unissist(adapter, store, 2, () => ({ a: 'x' }), 0);
+
+    await sleep(100);
+
+    expect(await adapter.getState()).toMatchObject({
+      a: 'x',
     });
 
     await adapter.clearState();
