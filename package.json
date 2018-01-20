@@ -12,8 +12,29 @@
     "format": "prettier-eslint '{src,test}/**/*.js'",
     "build:main": "microbundle",
     "build:integrations": "microbundle src/{indexdbAdapter,localStorageAdapter,asyncStorageAdapter}.js -o integrations/x.js -f cjs",
-    "build": "npm run build:main && npm run build:integrations"
+    "build": "npm-run-all --silent -p build:main build:integrations -s size",
+    "size": "strip-json-comments --no-whitespace dist/unissist.js | gzip-size && bundlesize",
+    "prepare": "npm t",
+    "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
+  "bundlesize": [
+    {
+      "path": "dist/unissist.js",
+      "maxSize": "400b"
+    },
+    {
+      "path": "integrations/asyncStorageAdapter.js",
+      "maxSize": "400b"
+    },
+    {
+      "path": "integrations/indexdbAdapter.js",
+      "maxSize": "400b"
+    },
+    {
+      "path": "integrations/localStorageAdapter.js",
+      "maxSize": "300b"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DonnieWest/unissist.git"
@@ -60,6 +81,7 @@
     "asyncstorage-mock-another": "^1.0.1",
     "babel-jest": "^22.1.0",
     "babel-preset-env": "^1.6.1",
+    "bundlesize": "^0.15.3",
     "eslint": "^4.15.0",
     "eslint-config-koality": "^2.2.0",
     "eslint-config-prettier": "^2.9.0",
@@ -72,15 +94,18 @@
     "eslint-plugin-react": "^7.5.1",
     "eslint-plugin-standard": "^3.0.1",
     "fake-indexeddb": "^2.0.3",
+    "gzip-size-cli": "^2.1.0",
     "jest": "^22.1.3",
     "microbundle": "^0.3.1",
     "node-localstorage": "^1.3.0",
+    "npm-run-all": "^4.1.2",
     "prettier": "^1.10.2",
     "prettier-eslint-cli": "^4.7.0",
+    "strip-json-comments-cli": "^1.0.1",
     "unistore": "^3.0.3"
   },
   "peerDependencies": {
-    "unistore": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "unistore": "*"
   }
 }
