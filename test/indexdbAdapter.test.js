@@ -1,7 +1,7 @@
 import indexedDbAdapter from '../src/indexdbAdapter';
 window.indexedDB = require('fake-indexeddb');
 
-describe('indexdbAdapter', async () => {
+describe('indexdbAdapter', () => {
   it('getState() should initially be undefined', async () => {
     const adapter = indexedDbAdapter();
     expect(await adapter.getState()).toBeUndefined();

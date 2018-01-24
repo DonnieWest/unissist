@@ -2,7 +2,7 @@ import localStorageAdapter from '../src/localStorageAdapter';
 const LocalStorage = require('node-localstorage').LocalStorage;
 window.localStorage = new LocalStorage('./scratch2');
 
-describe('localStorageAdapter', async () => {
+describe('localStorageAdapter', () => {
   it('getState() should initially be undefined', async () => {
     const adapter = localStorageAdapter();
     expect(await adapter.getState()).toBeUndefined();

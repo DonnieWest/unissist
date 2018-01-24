@@ -7,8 +7,8 @@ window.localStorage = new LocalStorage('./scratch');
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-describe('unissist', async () => {
-  it('should be instantiable', async () => {
+describe('unissist', () => {
+  it('should be instantiable', () => {
     let store = createStore();
     let adapter = indexedDbAdapter();
     let cancel = unissist(adapter, store);

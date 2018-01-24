@@ -1,7 +1,7 @@
 import asyncStorageAdapter from '../src/asyncStorageAdapter';
 jest.mock('react-native');
 
-describe('asyncStorageAdapter', async () => {
+describe('asyncStorageAdapter', () => {
   it('getState() should initially be undefined', async () => {
     const adapter = asyncStorageAdapter();
     expect(await adapter.getState()).toBeUndefined();
