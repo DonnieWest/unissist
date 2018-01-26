@@ -1,4 +1,4 @@
-<a href="https://www.npmjs.org/package/unissist"><img src="https://img.shields.io/npm/v/unissist.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/donniewest/unissist"><img src="https://travis-ci.org/donniewest/unissist.svg?branch=master" alt="travis"></a>
+<a href="https://www.npmjs.org/package/unissist"><img src="https://img.shields.io/npm/v/unissist.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/DonnieWest/unissist"><img src="https://api.travis-ci.org/DonnieWest/unissist.svg?branch=master" alt="travis"></a>
 
 # unissist
 
