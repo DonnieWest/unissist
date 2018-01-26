@@ -76,7 +76,7 @@ let config = {
   migration: (oldState, oldversion) => ({ /* new state */ }),
 }
 
-persistStore(store, adapter);
+persistStore(store, adapter, config);
 
 ```
 
