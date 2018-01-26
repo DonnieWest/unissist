@@ -123,4 +123,28 @@ describe('unissist', () => {
       a: 'x',
     });
   });
+
+  it('should manipulate state on save when passed a reducer function', async () => {
+    let store = createStore();
+    cancel = unissist(store, adapter, {
+      version: 1,
+      debounceTime: 0,
+      map: state => ({
+        a: state.a,
+      }),
+    });
+
+    expect(adapter.getState()).toBeUndefined();
+
+    store.setState({ a: 'b' });
+    await sleep(100);
+    expect(await adapter.getState()).toMatchObject({ a: 'b' });
+
+    store.setState({ b: 'x' });
+    await sleep(100);
+    expect(await adapter.getState()).toMatchObject({ a: 'b' });
+
+    // Ensure the store state still contains the key we set
+    expect(store.getState()).toMatchObject({ a: 'b', b: 'x' });
+  });
 });

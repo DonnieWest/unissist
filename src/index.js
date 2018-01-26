@@ -13,7 +13,12 @@ export default function persistStore(store, adapter, conf) {
   conf = conf || {};
   let version = conf.version || 1,
     debounceTime = conf.debounceTime || 100,
-    migration = conf.migration;
+    migration = conf.migration,
+    map =
+      conf.map ||
+      function(state) {
+        return state;
+      };
 
   store.setState({ hydrated: false });
 
@@ -37,7 +42,7 @@ export default function persistStore(store, adapter, conf) {
     unsubscribe = store.subscribe(function() {
       if (!timer)
         timer = setTimeout(function() {
-          adapter.setState(store.getState());
+          adapter.setState(map(store.getState()));
           timer = null;
         }, debounceTime);
     });

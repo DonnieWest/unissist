@@ -69,14 +69,17 @@ import localStorageAdapter from 'unissist/integrations/localStorageAdapter';
 const store = createStore({ count: 0 })
 const adapter = localStorageAdapter();
 
-// these are the default values, except migration. By default, a version change simply drops the persisted state
+// Default values except migration
 let config = {
   version: 1,
   debounceTime: 100,
+  // called when version is updated. Defaults to dropping the store 
   migration: (oldState, oldversion) => ({ /* new state */ }),
+  // takes in the current state and returns the state to be persisted
+  map: state => ({ /* new persisted state shape */ })
 }
 
-persistStore(store, adapter);
+persistStore(store, adapter, conf);
 
 ```
 
