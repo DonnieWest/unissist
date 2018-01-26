@@ -11,25 +11,20 @@
  */
 export default function persistStore(store, adapter, conf) {
   conf = conf || {};
-  let version = conf.version || 1,
-    debounceTime = conf.debounceTime || 100,
-    migration = conf.migration;
+  let version = conf.version || 1;
 
   store.setState({ hydrated: false });
 
   Promise.resolve(adapter.getState()).then(function(state) {
     if (!state || !state.version || state.version < version) {
-      if (migration) {
-        store.setState(migration(state, version));
+      if (conf.migration) {
+        store.setState(conf.migration(state, version));
       } else {
         store.setState({ hydrated: true, version });
       }
     } else {
-      store.setState(
-        Object.assign({}, state, {
-          hydrated: true,
-        }),
-      );
+      state.hydrated = true;
+      store.setState(state);
     }
   });
 
@@ -39,7 +34,7 @@ export default function persistStore(store, adapter, conf) {
         timer = setTimeout(function() {
           adapter.setState((conf.map || Object)(store.getState()));
           timer = null;
-        }, debounceTime);
+        }, conf.debounceTime || 100);
     });
 
   return function() {
