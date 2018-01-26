@@ -79,7 +79,7 @@ let config = {
   map: state => ({ /* new persisted state shape */ })
 }
 
-persistStore(store, adapter, conf);
+persistStore(store, adapter, config);
 
 ```
 
