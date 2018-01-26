@@ -18,7 +18,9 @@ export default function persistStore(store, adapter, conf) {
   Promise.resolve(adapter.getState()).then(function(state) {
     if (!state || !state.version || state.version < version) {
       if (conf.migration) {
-        store.setState(conf.migration(state, version));
+        store.setState(
+          Object.assign({}, conf.migration(state, version), { hydrated: true }),
+        );
       } else {
         store.setState({ hydrated: true, version });
       }

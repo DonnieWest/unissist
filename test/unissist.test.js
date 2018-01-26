@@ -121,6 +121,7 @@ describe('unissist', () => {
 
     expect(await adapter.getState()).toMatchObject({
       a: 'x',
+      hydrated: true,
     });
   });
 
