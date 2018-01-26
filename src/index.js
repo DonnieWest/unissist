@@ -1,4 +1,4 @@
-/** Perists a unistore store to disk using a provided adapter
+/** Persists a unistore store to disk using a provided adapter
  *  @name persistStore
  *  @param {Object} [store] unistore store to perist
  *  @param {Object} [adapter] adapter to persist state
@@ -7,7 +7,7 @@
  *  @example
  *   let store = createStore();
  *   let adapter = indexedDbAdapter();
- *   persistStore(adapter, store);
+ *   persistStore(store, adapter);
  */
 export default function persistStore(store, adapter, conf) {
   conf = conf || {};
