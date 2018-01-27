@@ -7,7 +7,7 @@
   "main": "dist/unissist.js",
   "umd:main": "dist/unissist.umd.js",
   "scripts": {
-    "test": "rm -rf ./scratch* && npm run lint && npm run build && jest && rm -rf ./scratch*",
+    "test": "rm -rf ./scratch* && npm run lint && npm run build && jest ; rm -rf ./scratch*",
     "lint": "eslint '{src,test}/**/*.js'",
     "format": "prettier-eslint '{src,test}/**/*.js'",
     "build:main": "microbundle",
