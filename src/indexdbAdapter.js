@@ -5,12 +5,11 @@
 export default function indexdbAdapter(storeKey, version) {
   let db;
   storeKey = storeKey || 'unistorePersist';
-  version = version || 1;
 
   function getDB() {
     if (!db) {
       db = new Promise(function(resolve, reject) {
-        const openreq = indexedDB.open(storeKey, version);
+        const openreq = indexedDB.open(storeKey, version || 1);
 
         openreq.onerror = function() {
           reject(openreq.error);
