@@ -44,6 +44,10 @@ export default function indexdbAdapter(storeKey, version) {
     });
   }
 
+  function handleError(e) {
+    return undefined;
+  }
+
   return {
     getState() {
       let req;
@@ -53,17 +57,17 @@ export default function indexdbAdapter(storeKey, version) {
         .then(function() {
           return req.result;
         })
-        .catch();
+        .catch(handleError);
     },
     setState(value) {
       return withStore('readwrite', function(store) {
         store.put(value, storeKey);
-      }).catch();
+      }).catch(handleError);
     },
     clearState() {
       return withStore('readwrite', function(store) {
         store.clear();
-      }).catch();
+      }).catch(handleError);
     },
   };
 }
