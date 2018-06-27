@@ -189,8 +189,6 @@ describe('unissist', () => {
     });
 
     await sleep(100);
-    console.log('adapter', await adapter.getState());
-    console.log('store', await store.getState());
     expect(await store.getState()).toMatchObject({ a: 'e' });
   });
 });
