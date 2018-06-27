@@ -149,6 +149,23 @@ describe('unissist', () => {
     expect(store.getState()).toMatchObject({ a: 'b', b: 'x' });
   });
 
+  it('should manipulate state on load when passed a hydration function', async () => {
+    adapter.setState({ a: 'b', b: 'x' });
+
+    let store = createStore();
+
+    cancel = unissist(store, adapter, {
+      version: 1,
+      debounceTime: 100,
+      hydration: state => ({
+        a: state.a,
+      }),
+    });
+
+    await sleep(200);
+    expect(store.getState()).toMatchObject({ a: 'b', hydrated: true });
+  });
+
   it('should restore state before mapping', async () => {
     let initialState = { a: 'b', c: 'd' };
     let store = createStore(initialState);
