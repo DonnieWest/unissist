@@ -148,4 +148,32 @@ describe('unissist', () => {
     // Ensure the store state still contains the key we set
     expect(store.getState()).toMatchObject({ a: 'b', b: 'x' });
   });
+
+  it('should restore state before mapping', async () => {
+    let initialState = { a: 'b', c: 'd' };
+    let store = createStore(initialState);
+    let cancel = unissist(store, adapter, {
+      version: 1,
+      debounceTime: 0,
+      map: ({ a, b, ...rest }) => ({ a, ...rest }),
+    });
+
+    expect(adapter.getState()).toBeUndefined();
+    store.setState({ a: 'e', c: 'f' });
+    await sleep(100);
+    expect(await adapter.getState()).toMatchObject({ a: 'e' });
+    cancel();
+
+    store = createStore(initialState);
+    cancel = unissist(store, adapter, {
+      version: 1,
+      debounceTime: 0,
+      map: ({ a, b, ...rest }) => ({ a, ...rest }),
+    });
+
+    await sleep(100);
+    console.log('adapter', await adapter.getState());
+    console.log('store', await store.getState());
+    expect(await store.getState()).toMatchObject({ a: 'e' });
+  });
 });
