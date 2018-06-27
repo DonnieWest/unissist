@@ -42,7 +42,9 @@ export default function persistStore(store, adapter, conf) {
     unsubscribe = store.subscribe(function() {
       if (!timer)
         timer = setTimeout(function() {
-          adapter.setState((conf.map || Object)(store.getState()));
+          let state = store.getState();
+          state.version = state.version || version;
+          adapter.setState((conf.map || Object)(state));
           timer = null;
         }, conf.debounceTime || 100);
     });
