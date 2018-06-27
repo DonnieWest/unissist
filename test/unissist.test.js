@@ -148,4 +148,21 @@ describe('unissist', () => {
     // Ensure the store state still contains the key we set
     expect(store.getState()).toMatchObject({ a: 'b', b: 'x' });
   });
+
+  it('should manipulate state on load when passed a hydration function', async () => {
+    adapter.setState({ a: 'b', b: 'x' });
+
+    let store = createStore();
+
+    cancel = unissist(store, adapter, {
+      version: 1,
+      debounceTime: 100,
+      hydration: state => ({
+        a: state.a,
+      }),
+    });
+
+    await sleep(200);
+    expect(store.getState()).toMatchObject({ a: 'b', hydrated: true });
+  });
 });

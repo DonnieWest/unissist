@@ -16,7 +16,11 @@ export default function persistStore(store, adapter, conf) {
   store.setState({ hydrated: false });
 
   Promise.resolve(adapter.getState()).then(function(state) {
-    if (!state || !state.version || state.version < version) {
+    if (
+      !state ||
+      (!state.version && conf.migration) ||
+      state.version < version
+    ) {
       if (conf.migration) {
         store.setState(
           Object.assign({}, conf.migration(state, version), { hydrated: true }),
@@ -24,6 +28,10 @@ export default function persistStore(store, adapter, conf) {
       } else {
         store.setState({ hydrated: true, version });
       }
+    } else if (conf.hydration) {
+      store.setState(
+        Object.assign({}, conf.hydration(state), { hydrated: true }),
+      );
     } else {
       state.hydrated = true;
       store.setState(state);

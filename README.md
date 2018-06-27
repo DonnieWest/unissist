@@ -77,6 +77,8 @@ let config = {
   migration: (oldState, oldversion) => ({ /* new state */ }),
   // takes in the current state and returns the state to be persisted
   map: state => ({ /* new persisted state shape */ })
+  // takes in state that will be hydrated and returns the new state shape
+  hydration: state => ({ /* new state shape */ })
 }
 
 persistStore(store, adapter, config);
