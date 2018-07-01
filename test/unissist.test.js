@@ -125,6 +125,32 @@ describe('unissist', () => {
     });
   });
 
+  it('should migrate the state with an async migration function', async () => {
+    let store = createStore();
+    cancel = unissist(store, adapter, { version: 1, debounceTime: 0 });
+    expect(await adapter.getState()).toBeUndefined();
+    store.setState({ a: 'b' });
+    await sleep(100);
+    expect(await adapter.getState()).toMatchObject({ a: 'b' });
+    cancel();
+
+    store = createStore();
+    store = createStore();
+    cancel = unissist(store, adapter, {
+      version: 2,
+      debounceTime: 0,
+      migration: () => Promise.resolve({ a: 'x' }),
+    });
+
+    await sleep(100);
+
+    expect(await adapter.getState()).toMatchObject({
+      a: 'x',
+      hydrated: true,
+      version: 2,
+    });
+  });
+
   it('should manipulate state on save when passed a reducer function', async () => {
     let store = createStore();
     cancel = unissist(store, adapter, {
