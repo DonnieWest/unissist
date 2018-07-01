@@ -135,7 +135,6 @@ describe('unissist', () => {
     cancel();
 
     store = createStore();
-    store = createStore();
     cancel = unissist(store, adapter, {
       version: 2,
       debounceTime: 0,
