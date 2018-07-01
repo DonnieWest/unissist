@@ -73,7 +73,7 @@ const adapter = localStorageAdapter();
 let config = {
   version: 1,
   debounceTime: 100,
-  // called when version is updated. Defaults to dropping the store 
+  // called when version is updated. Accepts promises. Defaults to dropping the store
   migration: (oldState, oldversion) => ({ /* new state */ }),
   // takes in the current state and returns the state to be persisted
   map: state => ({ /* new persisted state shape */ })
