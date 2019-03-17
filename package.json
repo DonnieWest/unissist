@@ -107,5 +107,10 @@
   "peerDependencies": {
     "react-native": "*",
     "unistore": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
   }
 }
