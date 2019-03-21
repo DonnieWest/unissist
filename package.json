@@ -9,7 +9,7 @@
   "scripts": {
     "test": "rm -rf ./scratch* && npm run lint && npm run build && jest ; rm -rf ./scratch*",
     "lint": "eslint '{src,test}/**/*.js'",
-    "format": "prettier-eslint '{src,test}/**/*.js'",
+    "format": "prettier-eslint --write '{src,test}/**/*.js'",
     "build:main": "microbundle",
     "build:integrations": "microbundle src/{indexdbAdapter,localStorageAdapter,asyncStorageAdapter}.js -o integrations/x.js -f cjs",
     "build": "npm-run-all --silent -p build:main build:integrations -s size",
@@ -62,7 +62,16 @@
       "jest": true
     },
     "rules": {
-      "one-var": 0
+      "one-var": 0,
+      "semi": [2, "always"],
+      "prettier/prettier": [
+        "error",
+        {
+          "trailingComma": "all",
+          "singleQuote": true, 
+          "semi": true
+        }
+      ]
     }
   },
   "babel": {
