@@ -24,7 +24,7 @@
     },
     {
       "path": "integrations/asyncStorageAdapter.js",
-      "maxSize": "400b"
+      "maxSize": "1000b"
     },
     {
       "path": "integrations/indexdbAdapter.js",
