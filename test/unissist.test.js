@@ -90,7 +90,7 @@ describe('unissist', () => {
     cancel();
 
     store = createStore();
-    cancel = unissist(store, adapter, { version: 2, debounceTime: 100 });
+    cancel = unissist(store, adapter, { version: 2, debounceTime: 50 });
 
     await sleep(100);
 
@@ -106,7 +106,7 @@ describe('unissist', () => {
 
     expect(adapter.getState()).toBeUndefined();
     store.setState({ a: 'b' });
-    await sleep(100);
+    await sleep(200);
     expect(await adapter.getState()).toMatchObject({ a: 'b' });
     cancel();
 
@@ -117,7 +117,7 @@ describe('unissist', () => {
       migration: () => ({ a: 'x' }),
     });
 
-    await sleep(100);
+    await sleep(200);
 
     expect(await adapter.getState()).toMatchObject({
       a: 'x',
@@ -130,7 +130,7 @@ describe('unissist', () => {
     cancel = unissist(store, adapter, { version: 1, debounceTime: 0 });
     expect(await adapter.getState()).toBeUndefined();
     store.setState({ a: 'b' });
-    await sleep(100);
+    await sleep(200);
     expect(await adapter.getState()).toMatchObject({ a: 'b' });
     cancel();
 
@@ -141,7 +141,7 @@ describe('unissist', () => {
       migration: () => Promise.resolve({ a: 'x' }),
     });
 
-    await sleep(100);
+    await sleep(200);
 
     expect(await adapter.getState()).toMatchObject({
       a: 'x',
