@@ -1,6 +1,6 @@
 {
   "name": "unissist",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A persistance library for unistore",
   "source": "src/index.js",
   "module": "dist/unissist.es.js",
